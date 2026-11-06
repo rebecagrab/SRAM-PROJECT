@@ -1,0 +1,45 @@
+** sch_path: /home/designer/shared/SRAM-PROJECT/sram8t/schematic/sram8t_tb.sch
+**.subckt sram8t_tb
+V1 VDD GND 1.2
+V3 net1 GND 1.2
+V2 net2 GND 0
+V4 net3 GND PULSE(0 1.2 5n 10p 10p 5n 50n)
+V5 net4 GND PULSE(0 1.2 12n 10p 10p 5n 50n)
+x1 net1 net2 net3 net6 net4 sram8t
+XM1 net6 net5 VDD VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
+V_PRE net5 GND PULSE(0 1.2 11n 10p 10p 20n 50n)
+C1 net6 GND 10f m=1
+**** begin user architecture code
+
+.lib /opt/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib mos_tt
+
+.tran 10p 20n uic
+
+.ic v(x1.q)=1.2
+.ic v(x1.qb)=0
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  sram8t.sym # of pins=5
+** sym_path: /home/designer/shared/SRAM-PROJECT/sram8t/schematic/sram8t.sym
+** sch_path: /home/designer/shared/SRAM-PROJECT/sram8t/schematic/sram8t.sch
+.subckt sram8t BLB BL WWL RBL RWL
+*.iopin BL
+*.iopin BLB
+*.ipin WWL
+*.ipin RWL
+*.opin RBL
+XM1 Q QB GND GND sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM2 QB Q GND GND sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM3 Q QB VDD VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
+XM4 QB Q VDD VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
+XM5 Q WWL BL GND sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM6 QB WWL BLB GND sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM7 RBL RWL net1 GND sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM8 net1 Q GND GND sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+.ends
+
+.GLOBAL VDD
+.GLOBAL GND
+.end

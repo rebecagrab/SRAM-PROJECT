@@ -52,90 +52,95 @@ N -330 30 -330 60 {lab=BL}
 N 290 -30 370 -30 {lab=QB}
 N 290 -30 290 -0 {lab=QB}
 N 240 -0 290 -0 {lab=QB}
-N -370 0 -370 20 {lab=WWL}
-N 330 0 330 30 {lab=WWL}
-N 120 340 120 370 {lab=#net1}
-N 60 310 80 310 {lab=RWL}
-N 60 400 80 400 {lab=Q}
-N 120 260 120 280 {lab=RBL}
-N 120 400 220 400 {lab=GND}
-N 120 430 120 460 {lab=GND}
-N 120 310 220 310 {lab=#net2}
-C {sg13g2_pr/sg13_hv_nmos.sym} -190 100 0 0 {name=M1
-l=0.45u
-w=0.3u
-ng=1
-m=1
-model=sg13_hv_nmos
-spiceprefix=X
-}
-C {sg13g2_pr/sg13_hv_nmos.sym} 100 100 0 0 {name=M2
-l=0.45u
-w=0.3u
-ng=1
-m=1
-model=sg13_hv_nmos
-spiceprefix=X
-}
-C {sg13g2_pr/sg13_hv_pmos.sym} -190 -90 0 0 {name=M3
-l=0.4u
-w=0.3u
-ng=1
-m=1
-model=sg13_hv_pmos
-spiceprefix=X
-}
-C {sg13g2_pr/sg13_hv_pmos.sym} 100 -90 0 0 {name=M4
-l=0.4u
-w=0.3u
-ng=1
-m=1
-model=sg13_hv_pmos
-spiceprefix=X
-}
-C {gnd.sym} 0 180 0 0 {name=l1 lab=GND}
-C {vdd.sym} 0 -150 0 0 {name=l2 lab=VDD}
+N 120 370 120 400 {lab=#net1}
+N 60 340 80 340 {lab=RWL}
+N 60 430 80 430 {lab=Q}
+N 120 290 120 310 {lab=RBL}
+N 120 430 220 430 {lab=GND}
+N 120 460 120 490 {lab=GND}
+N 120 340 220 340 {lab=GND}
+N -330 -0 -270 -0 {lab=GND}
+N 370 0 440 0 {lab=GND}
+N 310 0 330 0 {lab=WWL}
+N 310 -0 310 250 {lab=WWL}
+N -370 0 -370 250 {lab=WWL}
+N -370 250 310 250 {lab=WWL}
+C {gnd.sym} 0 180 0 0 {name=GND lab=GND}
+C {vdd.sym} 0 -150 0 0 {name=VDD lab=VDD}
 C {lab_pin.sym} -170 0 0 0 {name=Q sig_type=std_logic lab=Q}
 C {lab_pin.sym} 120 0 0 0 {name=QB sig_type=std_logic lab=QB}
-C {sg13g2_pr/sg13_hv_nmos.sym} -350 0 0 0 {name=M5
-l=0.45u
-w=0.3u
+C {iopin.sym} -330 60 0 0 {name=BL1 sig_type=std_logic lab=BL}
+C {iopin.sym} 370 60 2 0 {name=BLB sig_type=std_logic lab=BLB}
+C {ipin.sym} -370 250 0 0 {name=WWL1 sig_type=std_logic lab=WWL}
+C {ipin.sym} 60 340 0 0 {name=RWL sig_type=std_logic lab=RWL}
+C {lab_pin.sym} 60 430 0 0 {name=Q1 sig_type=std_logic lab=Q}
+C {gnd.sym} 120 490 0 0 {name=GND2 lab=GND}
+C {opin.sym} 120 290 0 0 {name=RBL sig_type=std_logic lab=RBL}
+C {gnd.sym} 220 430 0 0 {name=GND1 lab=GND}
+C {gnd.sym} 220 340 0 0 {name=GND3 lab=GND}
+C {gnd.sym} -270 0 0 0 {name=GND5 lab=GND}
+C {gnd.sym} 440 0 0 0 {name=GND4 lab=GND}
+C {sg13g2_pr/sg13_lv_nmos.sym} -190 100 0 0 {name=M1
+l=0.13u
+w=0.15u
 ng=1
 m=1
-model=sg13_hv_nmos
+model=sg13_lv_nmos
 spiceprefix=X
 }
-C {sg13g2_pr/sg13_hv_nmos.sym} 350 0 0 0 {name=M6
-l=0.45u
-w=0.3u
+C {sg13g2_pr/sg13_lv_nmos.sym} 100 100 0 0 {name=M2
+l=0.13u
+w=0.15u
 ng=1
 m=1
-model=sg13_hv_nmos
+model=sg13_lv_nmos
 spiceprefix=X
 }
-C {lab_pin.sym} -330 60 0 0 {name=BL1 sig_type=std_logic lab=BL}
-C {lab_pin.sym} 370 60 2 0 {name=BLB sig_type=std_logic lab=BLB}
-C {lab_pin.sym} 330 30 0 0 {name=WWL sig_type=std_logic lab=WWL}
-C {lab_pin.sym} -370 20 0 0 {name=WWL1 sig_type=std_logic lab=WWL}
-C {sg13g2_pr/sg13_hv_nmos.sym} 100 310 0 0 {name=M7
-l=0.45u
-w=0.3u
+C {sg13g2_pr/sg13_lv_pmos.sym} -190 -90 0 0 {name=M3
+l=0.13u
+w=0.15u
 ng=1
 m=1
-model=sg13_hv_nmos
+model=sg13_lv_pmos
 spiceprefix=X
 }
-C {sg13g2_pr/sg13_hv_nmos.sym} 100 400 0 0 {name=M8
-l=0.45u
-w=0.3u
+C {sg13g2_pr/sg13_lv_pmos.sym} 100 -90 0 0 {name=M4
+l=0.13u
+w=0.15u
 ng=1
 m=1
-model=sg13_hv_nmos
+model=sg13_lv_pmos
 spiceprefix=X
 }
-C {lab_pin.sym} 60 310 0 0 {name=RWL sig_type=std_logic lab=RWL}
-C {lab_pin.sym} 60 400 0 0 {name=Q1 sig_type=std_logic lab=Q}
-C {gnd.sym} 120 460 0 0 {name=l3 lab=GND}
-C {lab_pin.sym} 120 260 0 0 {name=RBL sig_type=std_logic lab=RBL}
-C {gnd.sym} 220 400 0 0 {name=l4 lab=GND}
-C {gnd.sym} 220 310 0 0 {name=l5 lab=GND}
+C {sg13g2_pr/sg13_lv_nmos.sym} -350 0 0 0 {name=M5
+l=0.13u
+w=0.15u
+ng=1
+m=1
+model=sg13_lv_nmos
+spiceprefix=X
+}
+C {sg13g2_pr/sg13_lv_nmos.sym} 350 0 0 0 {name=M6
+l=0.13u
+w=0.15u
+ng=1
+m=1
+model=sg13_lv_nmos
+spiceprefix=X
+}
+C {sg13g2_pr/sg13_lv_nmos.sym} 100 340 0 0 {name=M7
+l=0.13u
+w=0.15u
+ng=1
+m=1
+model=sg13_lv_nmos
+spiceprefix=X
+}
+C {sg13g2_pr/sg13_lv_nmos.sym} 100 430 0 0 {name=M8
+l=0.13u
+w=0.15u
+ng=1
+m=1
+model=sg13_lv_nmos
+spiceprefix=X
+}

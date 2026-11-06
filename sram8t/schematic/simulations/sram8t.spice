@@ -1,0 +1,19 @@
+** sch_path: /home/designer/shared/SRAM-PROJECT/sram8t/schematic/sram8t.sch
+**.subckt sram8t BLB BL WWL RBL RWL
+*.iopin BL
+*.iopin BLB
+*.ipin WWL
+*.ipin RWL
+*.opin RBL
+XM1 Q QB GND GND sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM2 QB Q GND GND sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM3 Q QB VDD VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
+XM4 QB Q VDD VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
+XM5 Q WWL BL GND sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM6 QB WWL BLB GND sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM7 RBL RWL net1 GND sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM8 net1 Q GND GND sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+**.ends
+.GLOBAL GND
+.GLOBAL VDD
+.end
