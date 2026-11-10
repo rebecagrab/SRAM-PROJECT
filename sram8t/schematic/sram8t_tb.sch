@@ -42,13 +42,15 @@ C {vsource.sym} -170 50 0 0 {name=V5 value="PULSE(0 1.2 5n 10p 10p 5n 50n)" save
 C {gnd.sym} -170 100 0 0 {name=l4 lab=GND}
 C {sram8t.sym} 20 20 0 0 {name=x1}
 C {gnd.sym} 200 110 0 0 {name=l5 lab=GND}
-C {code_shown.sym} -360 -210 0 0 {name=s1 only_toplevel=false value=".lib /opt/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib mos_tt
+C {code_shown.sym} -380 -280 0 0 {name=s1 only_toplevel=false value=".lib /opt/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib mos_tt
 
 .tran 10p 20n uic
 
 .measure tran t_write TRIG v(net3) VAL=0.6 RISE=1 TARG v(x1.q) VAL=0.6 FALL=1
 
 .measure tran t_read TRIG v(net4) VAL=0.6 RISE=1 TARG v(net6) VAL=0.6 FALL=1
+
+.measure tran p_avg AVG par('-v(VDD)*i(V1)') FROM=0n TO=20n
 
 .ic v(x1.q)=1.2
 .ic v(x1.qb)=0"}

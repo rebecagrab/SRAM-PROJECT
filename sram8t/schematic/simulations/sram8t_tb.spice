@@ -19,6 +19,8 @@ C1 net6 GND 10f m=1
 
 .measure tran t_read TRIG v(net4) VAL=0.6 RISE=1 TARG v(net6) VAL=0.6 FALL=1
 
+.measure tran p_avg AVG par('-v(VDD)*i(V1)') FROM=0n TO=20n
+
 .ic v(x1.q)=1.2
 .ic v(x1.qb)=0
 
