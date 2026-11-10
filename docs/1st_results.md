@@ -82,3 +82,39 @@ A simulação demonstrou:
 - medição automática dos tempos de escrita e leitura utilizando comandos `.measure` do ngspice.
 
 Os resultados atuais obtidos para esta implementação são **17,48 ps para a operação de escrita** e **568,86 ps para a operação de leitura**.
+
+## 3. Medição de Consumo de Potência
+
+Após a validação das operações de escrita e leitura da SRAM 8T, foi realizada uma primeira medição do consumo de potência durante a simulação transiente.
+
+A potência média foi calculada utilizando a corrente fornecida pela fonte de alimentação `V1`, conforme a expressão:
+
+```spice
+.measure tran p_avg AVG par('-v(VDD)*i(V1)') FROM=0n TO=20n
+```
+
+A simulação foi realizada durante o intervalo de **0 ns a 20 ns**, abrangendo as operações avaliadas no testbench.
+
+### Resultado
+
+| Parâmetro | Resultado |
+|---|---:|
+| Tempo de escrita (`t_write`) | 17,48 ps |
+| Tempo de leitura (`t_read`) | 568,86 ps |
+| Potência média (`p_avg`) | 13,64 µW |
+
+O valor obtido para a potência média foi:
+
+```text
+p_avg = 1.364417e-05 W
+```
+
+Portanto:
+
+**Potência média = 13,64 µW**
+
+### Observação
+
+Este valor representa a potência média calculada durante toda a janela de simulação, entre **0 ns e 20 ns**. Dessa forma, a medição inclui o comportamento do circuito durante os diferentes estados presentes na simulação.
+
+Como próxima etapa, serão realizadas medições específicas de consumo durante as operações de **escrita** e **leitura**, permitindo uma análise mais detalhada do desempenho energético da SRAM 8T.
