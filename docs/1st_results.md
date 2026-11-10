@@ -182,3 +182,236 @@ Portanto:
 ### Observação
 
 Os valores apresentados correspondem à potência média fornecida pela fonte de alimentação `V1` durante as respectivas janelas temporais. Os resultados serão posteriormente utilizados para comparação com a implementação da SRAM 10T.
+
+# Resultados Consolidados — SRAM 8T
+
+## 1. Condições da Simulação
+
+A célula SRAM 8T foi simulada nas seguintes condições:
+
+| Parâmetro | Valor |
+|---|---|
+| Tecnologia | IHP SG13G2 |
+| Corner dos transistores MOS | `mos_tt` |
+| Tensão de alimentação | 1,2 V |
+| Temperatura | 27 °C |
+| Tipo de análise | Transiente |
+| Tempo total de simulação | 20 ns |
+| Passo máximo de simulação | 10 ps |
+| Arquitetura | SRAM 8T |
+
+As simulações foram realizadas utilizando os modelos de transistores MOS de baixa tensão da tecnologia IHP SG13G2.
+
+---
+
+## 2. Operação de Escrita
+
+A operação de escrita foi ativada por meio da **Write Word Line (`WWL`)**.
+
+O atraso de escrita medido foi:
+
+```text
+t_write = 1.748468e-11 s
+```
+
+Convertendo para picossegundos:
+
+```text
+t_write ≈ 17,48 ps
+```
+
+Durante a operação de escrita, os nós internos de armazenamento mudaram corretamente de estado:
+
+- `Q`: aproximadamente **1,2 V → 0 V**
+- `QB`: aproximadamente **0 V → 1,2 V**
+
+### Resultado
+
+A célula SRAM 8T conseguiu alterar e armazenar corretamente o novo estado lógico.
+
+**Operação de escrita: APROVADA ✅**
+
+---
+
+## 3. Operação de Leitura
+
+A operação de leitura foi ativada por meio da **Read Word Line (`RWL`)**.
+
+O atraso de leitura medido foi:
+
+```text
+t_read = 5.686825e-10 s
+```
+
+Convertendo para picossegundos:
+
+```text
+t_read ≈ 568,68 ps
+```
+
+Durante a operação de leitura, os nós internos de armazenamento permaneceram estáveis.
+
+### Resultado
+
+A informação armazenada foi preservada durante a operação de leitura.
+
+**Operação de leitura não destrutiva: APROVADA ✅**
+
+---
+
+## 4. Consumo Médio de Potência
+
+O consumo médio de potência foi medido considerando todo o intervalo de simulação, de **0 ns a 20 ns**.
+
+Comando utilizado:
+
+```spice
+.measure tran p_avg AVG par('-v(VDD)*i(V1)') FROM=0n TO=20n
+```
+
+Resultado:
+
+```text
+P_avg = 1.364417e-05 W
+```
+
+Convertendo para microwatts:
+
+```text
+P_avg ≈ 13,64 µW
+```
+
+---
+
+## 5. Consumo de Potência Durante a Escrita
+
+O consumo de potência durante a operação de escrita foi medido no intervalo de **12 ns a 17 ns**.
+
+Comando utilizado:
+
+```spice
+.measure tran p_write AVG par('-v(VDD)*i(V1)') FROM=12n TO=17n
+```
+
+Resultado:
+
+```text
+P_write = 2.930375e-07 W
+```
+
+Convertendo para microwatts:
+
+```text
+P_write ≈ 0,293 µW
+```
+
+---
+
+## 6. Consumo de Potência Durante a Leitura
+
+O consumo de potência durante a operação de leitura foi medido no intervalo de **5 ns a 10 ns**.
+
+Comando utilizado:
+
+```spice
+.measure tran p_read AVG par('-v(VDD)*i(V1)') FROM=5n TO=10n
+```
+
+Resultado:
+
+```text
+P_read = 4.932231e-05 W
+```
+
+Convertendo para microwatts:
+
+```text
+P_read ≈ 49,32 µW
+```
+
+---
+
+## 7. Análise de Estabilidade Funcional
+
+A simulação transiente também foi utilizada para verificar a estabilidade funcional da célula SRAM 8T.
+
+### Estado Inicial
+
+A célula foi inicializada com:
+
+```text
+Q = 1,2 V
+QB = 0 V
+```
+
+Os nós complementares de armazenamento representaram corretamente o estado lógico armazenado.
+
+### Estabilidade Durante a Leitura
+
+Durante a operação de leitura:
+
+- A **Read Word Line (`RWL`)** foi ativada.
+- A leitura ocorreu pelo caminho de leitura dedicado.
+- Os nós internos `Q` e `QB` mantiveram seus valores armazenados.
+
+Isso confirma que a operação de leitura não alterou o dado armazenado durante o intervalo analisado.
+
+**Leitura não destrutiva: CONFIRMADA ✅**
+
+### Estabilidade Durante a Escrita
+
+Durante a operação de escrita:
+
+- A **Write Word Line (`WWL`)** foi ativada.
+- O estado anteriormente armazenado foi alterado corretamente.
+- Os nós `Q` e `QB` inverteram seus estados.
+- O novo estado permaneceu armazenado após a operação.
+
+**Escrita e retenção do novo estado: CONFIRMADAS ✅**
+
+### Resultado
+
+A célula SRAM 8T demonstrou:
+
+- Armazenamento correto de dados.
+- Operação de escrita funcional.
+- Operação de leitura não destrutiva.
+- Retenção do novo estado após a escrita.
+
+**Estabilidade funcional: APROVADA ✅**
+
+> **Observação:** Esta análise representa uma verificação funcional de estabilidade por meio de simulação transiente. Uma caracterização mais completa da estabilidade de uma SRAM pode incluir análises como **Static Noise Margin (SNM)**, curva borboleta, margem de escrita e variações de Processo, Tensão e Temperatura (PVT).
+
+---
+
+# 8. Resumo Consolidado dos Resultados
+
+| Métrica | Resultado |
+|---|---:|
+| **Tempo de escrita** | **17,48 ps** |
+| **Tempo de leitura** | **568,68 ps** |
+| **Potência média** | **13,64 µW** |
+| **Potência durante a escrita** | **0,293 µW** |
+| **Potência durante a leitura** | **49,32 µW** |
+| **Operação de escrita** | **APROVADA ✅** |
+| **Leitura não destrutiva** | **APROVADA ✅** |
+| **Retenção de dados** | **APROVADA ✅** |
+| **Estabilidade funcional** | **APROVADA ✅** |
+
+---
+
+# Conclusão
+
+A célula **SRAM 8T** foi implementada e simulada com sucesso em nível esquemático utilizando a tecnologia **IHP SG13G2**.
+
+As simulações confirmaram o funcionamento correto das operações de escrita e leitura, a preservação do dado armazenado durante a leitura e o armazenamento correto do novo estado após a operação de escrita.
+
+Os principais resultados obtidos foram:
+
+- **Tempo de escrita:** 17,48 ps
+- **Tempo de leitura:** 568,68 ps
+- **Potência média:** 13,64 µW
+- **Potência durante a escrita:** 0,293 µW
+- **Potência durante a leitura:** 49,32 µW
+
+Esses resultados serão utilizados como **linha de base** para as próximas etapas do projeto, incluindo o desenvolvimento do layout físico da SRAM 8T, as simulações pós-layout e a futura comparação com uma arquitetura SRAM 10T.
