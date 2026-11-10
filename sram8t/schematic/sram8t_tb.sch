@@ -52,6 +52,10 @@ C {code_shown.sym} -380 -280 0 0 {name=s1 only_toplevel=false value=".lib /opt/p
 
 .measure tran p_avg AVG par('-v(VDD)*i(V1)') FROM=0n TO=20n
 
+.measure tran p_write AVG par('-v(VDD)*i(V1)') FROM=12n TO=17n
+
+.measure tran p_read AVG par('-v(VDD)*i(V1)') FROM=5n TO=10n
+
 .ic v(x1.q)=1.2
 .ic v(x1.qb)=0"}
 C {sg13g2_pr/sg13_lv_pmos.sym} 180 140 2 0 {name=M1
