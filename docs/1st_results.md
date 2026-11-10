@@ -118,3 +118,67 @@ Portanto:
 Este valor representa a potência média calculada durante toda a janela de simulação, entre **0 ns e 20 ns**. Dessa forma, a medição inclui o comportamento do circuito durante os diferentes estados presentes na simulação.
 
 Como próxima etapa, serão realizadas medições específicas de consumo durante as operações de **escrita** e **leitura**, permitindo uma análise mais detalhada do desempenho energético da SRAM 8T.
+
+## 4. Medição de Potência Durante as Operações
+
+Para realizar uma análise mais detalhada do consumo da SRAM 8T, foram calculadas as potências médias em diferentes janelas temporais da simulação transiente.
+
+A potência foi calculada a partir da tensão de alimentação e da corrente fornecida pela fonte `V1`, utilizando a expressão:
+
+```spice
+AVG par('-v(VDD)*i(V1)')
+```
+
+### 4.1 Potência média total
+
+A potência média durante toda a simulação, entre **0 ns e 20 ns**, foi:
+
+| Medição | Resultado |
+|---|---:|
+| Potência média total | **13,64 µW** |
+
+### 4.2 Potência durante a operação de escrita
+
+A operação de escrita foi analisada na janela entre **12 ns e 17 ns**.
+
+```spice
+.measure tran p_write AVG par('-v(VDD)*i(V1)') FROM=12n TO=17n
+```
+
+Resultado:
+
+**p_write = 2.930375e-07 W**
+
+Portanto:
+
+**Potência média durante a escrita = 0,293 µW**
+
+### 4.3 Potência durante a operação de leitura
+
+A operação de leitura foi analisada na janela entre **5 ns e 10 ns**.
+
+```spice
+.measure tran p_read AVG par('-v(VDD)*i(V1)') FROM=5n TO=10n
+```
+
+Resultado:
+
+**p_read = 4.932231e-05 W**
+
+Portanto:
+
+**Potência média durante a leitura = 49,32 µW**
+
+### 4.4 Resumo dos resultados
+
+| Parâmetro | Resultado |
+|---|---:|
+| Tempo de escrita | **17,48 ps** |
+| Tempo de leitura | **568,86 ps** |
+| Potência média total | **13,64 µW** |
+| Potência média durante a escrita | **0,293 µW** |
+| Potência média durante a leitura | **49,32 µW** |
+
+### Observação
+
+Os valores apresentados correspondem à potência média fornecida pela fonte de alimentação `V1` durante as respectivas janelas temporais. Os resultados serão posteriormente utilizados para comparação com a implementação da SRAM 10T.
