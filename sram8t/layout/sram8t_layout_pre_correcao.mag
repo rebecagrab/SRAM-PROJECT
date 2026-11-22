@@ -1,0 +1,26 @@
+magic
+tech ihp-sg13g2
+magscale 1 2
+timestamp 1794540599
+<< error_p >>
+rect 69 175 109 221
+rect 46 171 132 175
+rect 69 163 109 171
+rect 12 139 52 147
+rect 126 139 166 147
+rect 2 135 62 139
+rect 116 138 176 139
+rect 2 101 52 135
+rect 2 97 62 101
+rect 116 98 166 138
+rect 116 97 176 98
+rect 12 89 52 97
+rect 126 89 166 97
+rect 69 65 109 73
+rect 46 61 132 65
+rect 69 15 109 61
+use sg13_lv_nmos_BTVQUG  sg13_lv_nmos_BTVQUG_0
+timestamp 0
+transform 1 0 89 0 1 118
+box -87 -104 87 104
+<< end >>
