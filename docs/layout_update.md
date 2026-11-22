@@ -55,6 +55,21 @@ Ao final desta etapa:
 - O layout principal da SRAM 8T continua sendo utilizado como célula de desenvolvimento;
 - A próxima etapa será organizar corretamente a hierarquia da célula SRAM e inserir os transistores necessários para a implementação da arquitetura SRAM 8T.
 
+
+### Atualização — 22/11/2026 | Desenvolvimento do layout SRAM 8T
+
+- Ambiente de layout definido com **KLayout 0.30.13** e tecnologia **IHP SG13G2**.
+- Criado o floorplan inicial da SRAM8T (`sram8t_layout_stage1.gds`).
+- Criados scripts Python para geração automatizada do layout.
+- Desenvolvida a primeira geometria de teste NMOS (`nmos_test_stage2.gds`).
+- Evoluída a geometria para estágio 3 (`nmos_stage3.gds`).
+- Identificadas as camadas de fabricação utilizadas no processo, incluindo Active, GatePoly, Contact e Metal1.
+- Scripts de geração preservados junto aos arquivos GDS para reprodutibilidade.
+- Criado backup da estrutura física em `backups/sram8t_2026-11-22.tar.gz`.
+
+**Status atual:** layout físico em desenvolvimento. A geometria NMOS está em estágio experimental e ainda necessita validação de regras de projeto (DRC), contatos, dimensões e conectividade antes de ser considerada uma estrutura válida para fabricação.
+
+**Próxima etapa:** continuar a construção física do transistor e avançar para a integração da célula SRAM 8T.
 ### Próxima etapa
 
 A próxima atividade será estruturar a célula `sram8t_layout` utilizando instâncias dos transistores NMOS e PMOS fornecidos pelo PDK, evitando a criação de estruturas hierárquicas circulares.
