@@ -86,6 +86,6 @@ label("RBL", 21.5, 7.2)
 label("Q", 11.2, 10.8)
 label("QB", 12.3, 10.8)
 
-out = "sram8t/layout/physical/sram8t_layout_stage1.gds"
+out = "sram8t_layout_stage1.gds"
 ly.write(out)
 print("LAYOUT GERADO:", out)
