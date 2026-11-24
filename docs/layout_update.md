@@ -1,77 +1,113 @@
 ## Atualização – Desenvolvimento do Layout da SRAM 8T
 
-### Etapa realizada: Exploração e validação do layout do transistor NMOS
+### Etapa realizada: Exploração inicial do layout do transistor NMOS
 
-Nesta etapa foi realizada a exploração do ambiente de layout físico utilizando a ferramenta Magic, configurada com a tecnologia IHP SG13G2.
+Inicialmente, foi realizada a exploração do ambiente de layout físico utilizando a ferramenta Magic, com a tecnologia IHP SG13G2.
 
-Inicialmente, foram realizados testes para abertura e manipulação da célula de layout da SRAM (`sram8t_layout`). Durante o processo, foi identificado que a criação de uma nova célula vazia não era necessária para o desenvolvimento do transistor, pois o PDK já disponibiliza dispositivos parametrizados prontos para utilização.
+Durante os testes, foram encontrados problemas relacionados à manipulação de células, hierarquia e execução de comandos. Após essa etapa, optou-se pela migração do desenvolvimento físico para o **KLayout**, visando dar continuidade à construção do layout.
 
-Foi então utilizado um transistor NMOS do PDK, identificado como:
+### Transição para o KLayout
 
-`sg13_lv_nmos_BTVQUG`
+O ambiente de desenvolvimento passou a utilizar:
 
-O dispositivo foi inserido e analisado dentro do ambiente Magic.
+- **KLayout 0.30.13**
+- **PDK IHP SG13G2**
+- Scripts Python para geração automatizada de geometrias
+- Arquivos GDSII para armazenamento e evolução do layout
 
-### Verificação das conexões
+Foram identificadas as camadas físicas utilizadas no processo, incluindo:
 
-Através da seleção das regiões do dispositivo e da utilização do comando `what`, foram identificadas as principais conexões do transistor:
+- Active (`Activ`) — 1/0
+- GatePoly (`GatPoly`) — 5/0
+- Contact (`Cont`) — 6/0
+- Metal1 — 8/0
 
-- Gate (G): conectado à camada `polycont`;
-- Drain (D): conectado à região `ndiffc`;
-- Source (S): conectado à região `ndiffc`.
+### Etapa 1 — Floorplan inicial da SRAM8T
 
-Também foram identificadas as seguintes camadas presentes no dispositivo:
+Foi criado o primeiro floorplan da SRAM8T, com organização inicial da área de layout, regiões destinadas aos blocos e indicação das áreas de leitura e escrita.
 
-- nmos;
-- ndiff;
-- ndiffc;
-- poly;
-- polycont;
-- metal1;
-- via1;
-- metal2.
+Arquivo gerado:
 
-A análise confirmou que o dispositivo utilizado possui a estrutura física necessária para representar um transistor NMOS no processo tecnológico IHP SG13G2.
+` sram8t_layout_stage1.gds `
 
-### Problemas identificados durante a prática
+O floorplan serve como base visual e organizacional para o desenvolvimento da estrutura física da célula.
 
-Durante os testes, foram encontrados alguns problemas relacionados à hierarquia de células no Magic. Em especial, ocorreu uma tentativa de criação de uma estrutura circular, gerando a mensagem:
+### Etapa 2 — Geometria de teste NMOS
 
-"The edit cell is already a descendant of 'sram8t_layout', which means that you're trying to create a circular structure. This isn't legal."
+Foi desenvolvida uma primeira geometria experimental de NMOS utilizando as camadas físicas identificadas no PDK.
 
-Esse problema ocorreu devido à tentativa de manipular a célula principal da SRAM enquanto uma célula descendente já estava presente na hierarquia.
+Arquivo:
 
-Também foi observado que comandos como `edit` não são adequados para carregar uma célula inexistente ou retornar diretamente para outra célula, sendo necessário compreender a diferença entre os comandos de carregamento, edição e hierarquia.
+`nmos_test_stage2.gds`
+
+Essa etapa teve como objetivo iniciar a construção física do transistor e observar a sobreposição e organização das camadas no KLayout.
+
+### Etapa 3 — Evolução da geometria NMOS
+
+Foi criada uma segunda versão da geometria NMOS, avançando na organização das regiões Active, GatePoly e Metal1.
+
+Arquivo gerado:
+
+`nmos_stage3.gds`
+
+Também foi criado o script de geração:
+
+`build_nmos_stage3.py`
+
+A geometria permanece experimental e ainda precisa passar por validações de regras de projeto, dimensões, contatos e conectividade.
+
+### Scripts desenvolvidos
+
+Os scripts utilizados para geração e construção das geometrias foram preservados no diretório:
+
+` sram8t/layout/physical/ `
+
+Arquivos principais:
+
+- `build_layout.py`
+- `build_nmos.py`
+- `build_nmos_stage3.py`
+
+A utilização de scripts permite reproduzir e modificar as geometrias sem depender exclusivamente de desenho manual.
+
+### Arquivos gerados
+
+| Arquivo | Descrição |
+|---|---|
+| `SRAM8T_TOP.gds` | Layout inicial/floorplan |
+| `sram8t_layout_stage1.gds` | Floorplan da SRAM8T |
+| `nmos_test_stage2.gds` | Geometria NMOS experimental — estágio 2 |
+| `nmos_stage3.gds` | Geometria NMOS experimental — estágio 3 |
+
+### Backup e versionamento
+
+Em 22/11/2026, os arquivos gerados, scripts e backup foram adicionados ao repositório Git.
+
+Backup:
+
+`backups/sram8t_2026-11-22.tar.gz`
+
+Commit:
+
+`28fb86a` — Add SRAM8T physical layout stages and backup
+
+As alterações foram integradas aos commits existentes no repositório remoto e enviadas com sucesso para o GitHub, sincronizando a branch `main`.
 
 ### Estado atual do projeto
 
-Ao final desta etapa:
+- KLayout 0.30.13 configurado para desenvolvimento de layout.
+- Tecnologia IHP SG13G2 carregada.
+- Floorplan inicial SRAM8T gerado.
+- Geometrias experimentais de NMOS nos estágios 2 e 3 geradas.
+- Scripts Python preservados para reprodução.
+- Arquivos GDS salvos no repositório.
+- Backup criado.
+- GitHub sincronizado.
 
-- O ambiente Magic está funcionando corretamente;
-- A tecnologia IHP SG13G2 está carregada;
-- O transistor NMOS parametrizado foi inserido e visualizado;
-- As conexões de Gate, Drain e Source foram identificadas;
-- As camadas físicas utilizadas pelo transistor foram verificadas;
-- O layout principal da SRAM 8T continua sendo utilizado como célula de desenvolvimento;
-- A próxima etapa será organizar corretamente a hierarquia da célula SRAM e inserir os transistores necessários para a implementação da arquitetura SRAM 8T.
+**Status:** desenvolvimento do layout físico em andamento. As geometrias atuais são experimentais, não estando ainda validadas por DRC ou LVS.
 
-
-### Atualização — 22/11/2026 | Desenvolvimento do layout SRAM 8T
-
-- Ambiente de layout definido com **KLayout 0.30.13** e tecnologia **IHP SG13G2**.
-- Criado o floorplan inicial da SRAM8T (`sram8t_layout_stage1.gds`).
-- Criados scripts Python para geração automatizada do layout.
-- Desenvolvida a primeira geometria de teste NMOS (`nmos_test_stage2.gds`).
-- Evoluída a geometria para estágio 3 (`nmos_stage3.gds`).
-- Identificadas as camadas de fabricação utilizadas no processo, incluindo Active, GatePoly, Contact e Metal1.
-- Scripts de geração preservados junto aos arquivos GDS para reprodutibilidade.
-- Criado backup da estrutura física em `backups/sram8t_2026-11-22.tar.gz`.
-
-**Status atual:** layout físico em desenvolvimento. A geometria NMOS está em estágio experimental e ainda necessita validação de regras de projeto (DRC), contatos, dimensões e conectividade antes de ser considerada uma estrutura válida para fabricação.
-
-**Próxima etapa:** continuar a construção física do transistor e avançar para a integração da célula SRAM 8T.
 ### Próxima etapa
 
-A próxima atividade será estruturar a célula `sram8t_layout` utilizando instâncias dos transistores NMOS e PMOS fornecidos pelo PDK, evitando a criação de estruturas hierárquicas circulares.
+Continuar o desenvolvimento da geometria NMOS no KLayout, ajustando dimensões e estrutura física para uma representação mais consistente com as regras do PDK IHP SG13G2.
 
-Após isso, será iniciado o posicionamento dos transistores que formarão os inversores cruzados e os demais elementos da arquitetura SRAM 8T.
+Após validar a geometria do transistor, avançar para a construção e integração dos dispositivos que compõem a célula SRAM8T, incluindo inversores cruzados, transistores de acesso e estrutura de leitura.
